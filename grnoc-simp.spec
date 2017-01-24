@@ -1,7 +1,7 @@
 Summary: A small system for gathering large amounts of SNMP data and providing a RabbitMQ mechanism to access them 
 Name: grnoc-simp
 Version: 1.0.0
-Release: 1%{dist}
+Release: 2%{dist}
 License: GRNOC
 Group: GRNOC
 URL: http://globalnoc.iu.edu/simp
@@ -43,12 +43,12 @@ rm -rf $RPM_BUILD_ROOT
 %{__install} -d -p %{buildroot}/usr/bin/
 
 %{__install} lib/GRNOC/Simp.pm %{buildroot}%{perl_vendorlib}/GRNOC/Simp.pm
-%{__install} lib/GRNOC/Simp.pm %{buildroot}%{perl_vendorlib}/GRNOC/Simp/Data.pm
-%{__install} lib/GRNOC/Simp.pm %{buildroot}%{perl_vendorlib}/GRNOC/Simp/CompData.pm
-%{__install} lib/GRNOC/Simp.pm %{buildroot}%{perl_vendorlib}/GRNOC/Simp/Poller.pm
-%{__install} lib/GRNOC/Simp.pm %{buildroot}%{perl_vendorlib}/GRNOC/Simp/Data/Worker.pm
-%{__install} lib/GRNOC/Simp.pm %{buildroot}%{perl_vendorlib}/GRNOC/Simp/CompData/Worker.pm
-%{__install} lib/GRNOC/Simp.pm %{buildroot}%{perl_vendorlib}/GRNOC/Simp/Poller/Worker.pm
+%{__install} lib/GRNOC/Simp/Data.pm %{buildroot}%{perl_vendorlib}/GRNOC/Simp/Data.pm
+%{__install} lib/GRNOC/Simp/CompData.pm %{buildroot}%{perl_vendorlib}/GRNOC/Simp/CompData.pm
+%{__install} lib/GRNOC/Simp/Poller.pm %{buildroot}%{perl_vendorlib}/GRNOC/Simp/Poller.pm
+%{__install} lib/GRNOC/Simp/Data/Worker.pm %{buildroot}%{perl_vendorlib}/GRNOC/Simp/Data/Worker.pm
+%{__install} lib/GRNOC/Simp/CompData/Worker.pm %{buildroot}%{perl_vendorlib}/GRNOC/Simp/CompData/Worker.pm
+%{__install} lib/GRNOC/Simp/Poller/Worker.pm %{buildroot}%{perl_vendorlib}/GRNOC/Simp/Poller/Worker.pm
 %{__install} bin/simp.pl %{buildroot}/usr/bin/simp.pl
 %{__install} bin/simpData.pl %{buildroot}/usr/bin/simpData.pl
 %{__install} bin/compData.pl %{buildroot}/usr/bin/compData.pl

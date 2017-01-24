@@ -417,9 +417,11 @@ sub _get{
   #---   \->_scan_cb    \->_val_cb 
   #--- results are accumulated in $results{'final'} 
 
+  my $success = $rpc_ref->{'success_callback'};
+
   my $onSuccess = sub { my $cv = shift;
 			#warn "RESULTS: " . Dumper(%results);
-			$rpc_ref->{'success_callback'}($results{'final'});
+			\&$success($results{'final'});
   };
   $self->_do_scans(
       $ref,
