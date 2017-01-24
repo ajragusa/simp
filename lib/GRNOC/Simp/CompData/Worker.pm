@@ -184,8 +184,6 @@ sub _do_scans{
  
  foreach my $instance ($xrefs->get_nodelist){
     my $instance_id = $instance->getAttribute("id");
-#    warn "using instance: $instance_id\n";
-    #--- get the list of scans to perform
     my $scanres = $xc->find("./scan",$instance);
     foreach my $scan ($scanres->get_nodelist){
       my $id      = $scan->getAttribute("id");
@@ -196,15 +194,13 @@ sub _do_scans{
         $targets = $params->{$var}{"value"};
       }
       $cv->begin;
-#      warn "get $oid:\n";
-#      warn Dumper($hosts);
+
+      #use the client to fetch the data
       $self->client->get(
 	  ipaddrs => $hosts, 
 	  oidmatch => $oid,
 	  async_callback => sub {
 	      my $data= shift;
-	      
-#	      warn Dumper($data);
 	      $self->_scan_cb($data->{'results'},$hosts,$id,$oid,$targets,$results); 
 	      $cv->end;
 	  } );
@@ -279,21 +275,18 @@ sub _do_vals{
 	    my $oid     = $val->getAttribute("oid");
 	    my $type    = $val->getAttribute("type");
 	    
-#	    warn $val->toString() ."\n";
-	    
+	    #warn $val->toString() ."\n";
 	    
 	    if(!defined $var || !defined $id){
 		#--- required data missing
-#		warn "missing val or id\n";
+		#warn "missing val or id\n";
 		next;
 	    }
 	    
 	    if(!defined $oid){
-#		warn "missing oid\n";
+		warn "missing oid\n";
 		next;
 	    }
-	    
-#	    warn "get $id -> $var $oid \n";
 	    
 	    #--- we need pull data from simp 
 	    foreach my $host(@$hosts){
@@ -315,7 +308,6 @@ sub _do_vals{
 		#--- send the array of matches to simp
 		$cv->begin;
 		
-#		warn Dumper(\@matches);
 		
 		if(defined $type && $type eq "rate"){
 		    $self->client->get_rate(
@@ -357,8 +349,6 @@ sub _val_cb{
   my $doc = $self->config->{'doc'};
   my $xc  = XML::LibXML::XPathContext->new($doc);
 
-#  warn "val callback: $id\n";
-
   foreach my $host (keys %$data){
     foreach my $oid (keys %{$data->{$host}}){
       my $val = $data->{$host}{$oid}{'value'};
@@ -383,7 +373,6 @@ sub _val_cb{
 
       }
       $results->{'final'}{$host}{$var}{$id} =  $val; #sprintf("%.4f", $val);
-#      warn "HOst: " . $host . " var: " . $var . " " . $id . " = " . $val . "\n";
     }
   } 
 
