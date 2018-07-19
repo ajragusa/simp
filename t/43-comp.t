@@ -348,6 +348,8 @@ $response = $client->test6(
     node => ['a.example.net', 'b.example.net', 'c.example.net_1'],
 );
 
+warn Dumper($response);
+
 # "# ***" means "take particular note of these values
 # with regards to the <fctn>s being tested"
 check_response(13, $response,
@@ -421,7 +423,7 @@ check_response(13, $response,
     }
 );
 
-
+die;
 
 # Request 14: test of using two <input>s, where we specify both of them
 $response = $client->test7(
